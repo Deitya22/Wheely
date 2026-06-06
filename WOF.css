@@ -1,0 +1,197 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f0ebe2;
+    font-family: 'Courier New', 'SF Mono', 'IBM Plex Mono', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+/* container utama */
+.app {
+    max-width: 680px;
+    width: 100%;
+    background: white;
+    border: 2px solid #c02b2b;
+    box-shadow: 8px 8px 0 #2c5f8a;
+    padding: 24px 20px 32px;
+}
+
+/* header retro */
+.wheel-header {
+    text-align: center;
+    margin-bottom: 24px;
+    border-bottom: 3px double #c02b2b;
+    padding-bottom: 12px;
+}
+.wheel-header h1 {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+    color: #b12a2a;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: none;
+    -webkit-text-fill-color: #b12a2a;
+}
+.tagline {
+    font-size: 0.75rem;
+    color: #2c5f8a;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+/* area roda */
+.wheel-area {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0 8px;
+}
+.canvas-wrapper {
+    position: relative;
+    display: inline-block;
+}
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff6ed;
+    border-radius: 50%;
+    border: 2px solid #c02b2b;
+    box-shadow: none;
+    cursor: pointer;
+}
+.pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 44px solid #bf3a2e;
+    z-index: 5;
+}
+.pointer::after {
+    content: "▼";
+    position: absolute;
+    font-size: 20px;
+    top: -52px;
+    left: -12px;
+    color: #9e2d2d;
+}
+
+/* panel kontrol retro minimal */
+.control-panel {
+    margin-top: 28px;
+    background: #fefaf5;
+    padding: 16px 12px 20px;
+    border-top: 1px solid #e0cfbc;
+}
+.custom-box label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #b5342c;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    background: white;
+    border: 2px solid #d6c6b2;
+    resize: vertical;
+    outline: none;
+    transition: 0.1s linear;
+    color: #1c2e3a;
+}
+textarea:focus {
+    border-color: #2c5f8a;
+}
+.button-group {
+    display: flex;
+    gap: 16px;
+    margin: 18px 0 16px;
+    flex-wrap: wrap;
+}
+button {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    color: #2c2b26;
+    cursor: pointer;
+    transition: 0.1s linear;
+    border: 2px solid #b12a2a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-update {
+    border-color: #2c5f8a;
+    color: #1e4b6e;
+    background: white;
+}
+.btn-spin {
+    background: #b12a2a;
+    border-color: #8f2222;
+    color: white;
+}
+button:active {
+    transform: translate(2px, 2px);
+}
+.result-card {
+    background: #f2e7da;
+    padding: 14px 10px;
+    text-align: center;
+    border-left: 8px solid #c02b2b;
+    margin: 12px 0 8px;
+}
+.result-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #a53a2e;
+    letter-spacing: 1px;
+}
+.result-value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    font-family: 'Courier New', monospace;
+    color: #1e4b6e;
+    word-break: break-word;
+    background: none;
+    padding: 6px 0 2px;
+}
+.retro-note {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #8b7a68;
+    margin-top: 14px;
+    border-top: 1px dashed #d6c29f;
+    padding-top: 10px;
+    font-style: italic;
+}
+
+/* responsif */
+@media (max-width: 550px) {
+    .app { padding: 16px; }
+    .wheel-header h1 { font-size: 1.7rem; }
+    .result-value { font-size: 1.6rem; }
+    button { padding: 7px 16px; font-size: 0.75rem; }
+    .pointer { border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 36px solid #bf3a2e; top: -16px; }
+    .pointer::after { font-size: 16px; top: -44px; left: -10px; }
+}
