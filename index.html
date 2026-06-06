@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Roda Putar Nomor | Retro Minimalis</title>
+    <title>Wheel Of Fortune</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app">
         <div class="wheel-header">
             <h1>WHEEL OF FORTUNE</h1>
-            <p class="tagline">putar & temukan angka mu</p>
+            <p class="tagline">The Real RNG!!</p>
         </div>
 
         <div class="wheel-area">
@@ -51,7 +51,7 @@
             let animating = false;
             let animFrameId = null;
             let spinStartTime = 0;
-            let spinDuration = 1600;
+            let spinDuration = 3500;        // 3.5 detik → lebih lambat & dramatis
             let startRotation = 0;
             let targetRotation = 0;
             
@@ -65,9 +65,8 @@
                 return norm;
             }
             
-            // warna retro: palet merah, biru, putih, krem
+            // warna retro: merah, biru
             function getSegmentColor(index, total) {
-                // menggunakan warna solid: merah, biru tua, merah muda, biru langit
                 const colors = ["#c22b2b", "#2c5f8a", "#d64040", "#1e4b6e", "#b32d2d", "#3a7ca5"];
                 return colors[index % colors.length];
             }
@@ -128,7 +127,6 @@
                     ctx.stroke();
                 }
                 
-                // lingkaran tengah
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius * 0.12, 0, 2 * Math.PI);
                 ctx.fillStyle = "#f8ede0";
@@ -138,7 +136,6 @@
                 ctx.fillStyle = "#bf3a2e";
                 ctx.fill();
                 
-                // teks segmen
                 ctx.font = `bold ${Math.max(11, Math.floor(radius * 0.08))}px "Courier New", monospace`;
                 ctx.fillStyle = "#f9f2e2";
                 ctx.shadowBlur = 0;
@@ -156,7 +153,6 @@
                     ctx.fillText(label, x, y);
                 }
                 
-                // garis tepi retro
                 ctx.beginPath();
                 ctx.arc(centerX, centerY, radius + 4, 0, 2 * Math.PI);
                 ctx.lineWidth = 2;
@@ -179,12 +175,15 @@
                 else resultDisplay.innerText = "?";
             }
             
-            function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+            // easing lebih halus dan lambat (easeOutQuartic untuk efek dramatis)
+            function easeOutQuartic(t) {
+                return 1 - Math.pow(1 - t, 4);
+            }
             
             function animateSpin(now) {
                 const elapsed = now - spinStartTime;
                 let t = Math.min(1, elapsed / spinDuration);
-                const ease = easeOutCubic(t);
+                const ease = easeOutQuartic(t);  // menggunakan easing lebih dramatis
                 currentRotation = startRotation + (targetRotation - startRotation) * ease;
                 drawWheel();
                 if (t < 1) {
@@ -215,7 +214,8 @@
                 const targetLocalAngle = segStart + randomOffset;
                 let rawFinalRot = POINTER_ANGLE - targetLocalAngle;
                 let finalRotMod = normalizeAngle(rawFinalRot);
-                const fullTurns = 5 + Math.floor(Math.random() * 6);
+                // tambah putaran lebih banyak untuk efek dramatis (9-14 putaran)
+                const fullTurns = 9 + Math.floor(Math.random() * 6);
                 const deltaFull = fullTurns * 2 * Math.PI;
                 let targetAbsolute = currentRotation + deltaFull + finalRotMod;
                 startRotation = currentRotation;
